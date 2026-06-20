@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html ng-app="tempApp">
+<head>
+  <title>AngularJS Temperature Converter</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f7f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .converter-box {
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      width: 380px;
+      text-align: center;
+    }
+
+    h2 {
+      background: #d8b4fe;
+      color: #4c1d95;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .section {
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .celsius {
+      background: #e0f2fe;
+      border: 2px solid #7dd3fc;
+    }
+
+    .fahrenheit {
+      background: #ffedd5;
+      border: 2px solid #fdba74;
+    }
+
+    .box {
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    /* Label box */
+    .label-box {
+      background: #bfdbfe;
+      color: #1e3a8a;
+    }
+
+    /* Input box */
+    .input-box {
+      background: #f3f4f6;
+    }
+
+    .input-box input {
+      width: 100%;
+      border: none;
+      outline: none;
+      background: transparent;
+      text-align: center;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    /* Result box */
+    .result-box {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    /* Remove number arrows */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+  </style>
+</head>
+
+<body ng-controller="TempController">
+
+  <div class="converter-box">
+
+    <h2>🌡 Temperature Converter</h2>
+
+    <div class="section celsius">
+
+      <div class="box label-box">
+        ❄ Celsius
+      </div>
+
+      <div class="box input-box">
+        <input type="number"
+               ng-model="celsius"
+               ng-change="convertToFahrenheit()">
+      </div>
+
+      <div class="box result-box">
+        Fahrenheit: {{fahrenheit | number:2}} °F
+      </div>
+
+    </div>
+
+    <div class="section fahrenheit">
+
+      <div class="box label-box">
+        🔥 Fahrenheit
+      </div>
+
+      <div class="box input-box">
+        <input type="number"
+               ng-model="fahrenheit"
+               ng-change="convertToCelsius()">
+      </div>
+
+      <div class="box result-box">
+        Celsius: {{celsius | number:2}} °C
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    var app = angular.module("tempApp", []);
+
+    app.controller("TempController", function($scope) {
+
+      $scope.celsius = 0;
+      $scope.fahrenheit = 32;
+
+      $scope.convertToFahrenheit = function() {
+        $scope.fahrenheit = ($scope.celsius * 9 / 5) + 32;
+      };
+
+      $scope.convertToCelsius = function() {
+        $scope.celsius = ($scope.fahrenheit - 32) * 5 / 9;
+      };
+
+    });
+  </script>
+
+</body>
+</html>
